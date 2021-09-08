@@ -1,6 +1,7 @@
 from django.urls import path
+from . import views
 
 urlpatterns = [
-    #path('admin/', admin.site.urls),
-    #path('api-auth/', include('rest_framework.urls'))
+    path("movie/", views.MovieListView.as_view()),
+    path("movie/<int:pk>/", views.MovieDetailView.as_view()),
 ]
