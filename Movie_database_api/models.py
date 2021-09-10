@@ -42,7 +42,7 @@ class RatingStar(models.Model):
     value = PositiveSmallIntegerField("Значение", default=0)
 
     def __str__(self):
-        return self.value
+        return f'{self.value}'
 
     class Meta:
         verbose_name = "Звезда рейтинга"
