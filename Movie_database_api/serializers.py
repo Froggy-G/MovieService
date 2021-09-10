@@ -2,9 +2,12 @@ from rest_framework import serializers
 from .models import Movie, Rating
 
 class MovieListSerializer(serializers.ModelSerializer):
+    rating_user = serializers.BooleanField()
+    middle_star = serializers.IntegerField()
+
     class Meta:
         model = Movie
-        fields = ("title", )
+        fields = ("id", "title", "rating_user", "middle_star")
 
 class MovieDetailSerializer(serializers.ModelSerializer):
     directors = serializers.SlugRelatedField(slug_field="name", read_only='True', many='True')

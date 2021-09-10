@@ -1,15 +1,21 @@
 
+from django.db import models
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Movie
 from .serializers import CreateRatingSerializer, MovieListSerializer, MovieDetailSerializer
+from .service import get_client_ip
 
 # Create your views here.
 
 class MovieListView(APIView):
     def get(self, request):
-        movies = Movie.objects.all()
+        movies = Movie.objects.all().annotate(
+            rating_user=models.Count("ratings", filter=models.Q(ratings__ip=get_client_ip(request)))
+        ).annotate(
+            middle_star=models.Sum(models.F("ratings__star")) / models.Count(models.F("ratings"))
+        )
         serializer = MovieListSerializer(movies, many=True)
         return Response(serializer.data)
 
@@ -20,18 +26,10 @@ class MovieDetailView(APIView):
         return Response(serializer.data)
 
 class AddStarRatingView(APIView):
-    def get_client_ip(self, request):
-        x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(",")[0]
-        else:
-            ip = request.META.get("REMOTE_ADDR")
-        return ip
-    
     def post(self, request):
         serializer = CreateRatingSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(ip=self.get_client_ip(request))
+            serializer.save(ip=get_client_ip(request))
             return Response(status=201)
         else:
             return Response(status=400)
