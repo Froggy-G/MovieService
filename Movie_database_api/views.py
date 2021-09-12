@@ -21,6 +21,8 @@ class MovieListView(generics.ListAPIView):
             rating_user=models.Count("ratings", filter=models.Q(ratings__ip=get_client_ip(self.request)))
         ).annotate(
             middle_star=models.Sum(models.F("ratings__star")) / models.Count(models.F("ratings"))
+        ).annotate(
+            rating_count=models.Count("ratings")
         )
         return movies
 

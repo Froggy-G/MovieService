@@ -5,10 +5,11 @@ from .models import Movie, Rating
 class MovieListSerializer(serializers.ModelSerializer):
     rating_user = serializers.BooleanField()
     middle_star = serializers.IntegerField()
+    rating_count = serializers.IntegerField()
 
     class Meta:
         model = Movie
-        fields = ("id", "title", "rating_user", "middle_star")
+        fields = ("id", "title", "rating_user", "middle_star", "rating_count")
 
 
 class MovieDetailSerializer(serializers.ModelSerializer):
