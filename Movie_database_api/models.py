@@ -5,6 +5,7 @@ from django.db.models.fields.related import ForeignKey, ManyToManyField
 
 # Create your models here.
 
+
 class Actor(models.Model):
     name = CharField("Имя", max_length=100)
 
@@ -15,6 +16,7 @@ class Actor(models.Model):
         verbose_name = "Актеры и режиссеры"
         verbose_name_plural = "Актеры и режиссеры"
 
+
 class Genre(models.Model):
     name = CharField("Имя", max_length=100)
 
@@ -24,6 +26,7 @@ class Genre(models.Model):
     class Meta:
         verbose_name = "Жанр"
         verbose_name_plural = "Жанры"
+
 
 class Movie(models.Model):
     title = CharField("Название", max_length=100)
@@ -38,6 +41,7 @@ class Movie(models.Model):
         verbose_name = "Фильм"
         verbose_name_plural = "Фильмы"
 
+
 class RatingStar(models.Model):
     value = PositiveSmallIntegerField("Значение", default=0)
 
@@ -47,6 +51,7 @@ class RatingStar(models.Model):
     class Meta:
         verbose_name = "Звезда рейтинга"
         verbose_name_plural = "Звезды рейтинга"
+
 
 class Rating(models.Model):
     ip = CharField("IP адрес", max_length=15)

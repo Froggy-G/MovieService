@@ -8,6 +8,7 @@ from .service import get_client_ip
 
 # Create your views here.
 
+
 class MovieListView(generics.ListAPIView):
     serializer_class = MovieListSerializer
 
@@ -18,6 +19,7 @@ class MovieListView(generics.ListAPIView):
             middle_star=models.Sum(models.F("ratings__star")) / models.Count(models.F("ratings"))
         )
         return movies
+
 
 class MovieDetailView(generics.RetrieveAPIView):
     queryset = Movie.objects.filter()
