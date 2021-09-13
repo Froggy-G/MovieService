@@ -1,7 +1,9 @@
 
 from django.db import models
-from rest_framework import generics
+from rest_framework import generics, permissions
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .models import Movie
 from .serializers import CreateRatingSerializer, MovieListSerializer, MovieDetailSerializer
@@ -34,6 +36,13 @@ class MovieDetailView(generics.RetrieveAPIView):
 
 class AddStarRatingView(generics.CreateAPIView):
     serializer_class = CreateRatingSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
         serializer.save(ip=get_client_ip(self.request))
+
+
+class LogOut(APIView):
+    def get(self, request, format=None):
+        request.user.auth_token.delete()
+        return Response(status=200)
