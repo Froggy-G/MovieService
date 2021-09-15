@@ -29,7 +29,7 @@ class CreateRatingSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         rating, _ = Rating.objects.update_or_create(
-            ip=validated_data.get("ip", None),
+            user_id=validated_data.get("user_id", None),
             movie=validated_data.get("movie", None),
             defaults={"star": validated_data.get("star")}
         )

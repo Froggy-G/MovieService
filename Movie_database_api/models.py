@@ -54,7 +54,7 @@ class RatingStar(models.Model):
 
 
 class Rating(models.Model):
-    ip = CharField(verbose_name="IP адрес", max_length=15)
+    user_id = CharField(verbose_name="Id пользователя", max_length=15, default=None)
     star = ForeignKey(RatingStar, on_delete=CASCADE, verbose_name="Звезда")
     movie = ForeignKey(Movie, on_delete=CASCADE, verbose_name="Фильм", related_name="ratings")
 

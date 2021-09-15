@@ -20,7 +20,7 @@ class MovieListView(generics.ListAPIView):
 
     def get_queryset(self):
         movies = Movie.objects.all().annotate(
-            rating_user=models.Count("ratings", filter=models.Q(ratings__ip=get_client_ip(self.request)))
+            rating_user=models.Count("ratings", filter=models.Q(ratings__user_id=self.request.user.id))
         ).annotate(
             middle_star=models.Sum(models.F("ratings__star")) / models.Count(models.F("ratings"))
         ).annotate(
@@ -39,7 +39,7 @@ class AddStarRatingView(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
-        serializer.save(ip=get_client_ip(self.request))
+        serializer.save(user_id=self.request.user.id)
 
 
 class LogOut(APIView):

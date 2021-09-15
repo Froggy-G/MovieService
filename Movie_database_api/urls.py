@@ -3,7 +3,7 @@ from . import views
 from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
-    path("movie/", views.MovieListView.as_view()),
+    path("movies/", views.MovieListView.as_view()),
     path("movie/<int:pk>/", views.MovieDetailView.as_view()),
     path("rating/", views.AddStarRatingView.as_view()),
 
