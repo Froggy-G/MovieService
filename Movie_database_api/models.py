@@ -1,7 +1,8 @@
 from django.db import models
 from django.db.models.deletion import CASCADE
-from django.db.models.fields import CharField, PositiveSmallIntegerField
+from django.db.models.fields import CharField, IntegerField
 from django.db.models.fields.related import ForeignKey, ManyToManyField
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 
@@ -44,20 +45,9 @@ class Movie(models.Model):
         verbose_name_plural = "Фильмы"
 
 
-class RatingStar(models.Model):
-    value = PositiveSmallIntegerField(verbose_name="Значение", default=0)
-
-    def __str__(self):
-        return f"{self.value}"
-
-    class Meta:
-        verbose_name = "Звезда рейтинга"
-        verbose_name_plural = "Звезды рейтинга"
-
-
 class Rating(models.Model):
     user_id = CharField(verbose_name="Id пользователя", max_length=15, default=None)
-    star = ForeignKey(RatingStar, on_delete=CASCADE, verbose_name="Звезда")
+    star = IntegerField(verbose_name="Звезда", validators=[MinValueValidator(1), MaxValueValidator(5)])
     movie = ForeignKey(
         Movie, on_delete=CASCADE, verbose_name="Фильм", related_name="ratings"
     )
