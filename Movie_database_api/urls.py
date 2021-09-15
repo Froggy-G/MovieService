@@ -6,7 +6,7 @@ urlpatterns = [
     path("movies/", views.MovieListView.as_view()),
     path("movies/<int:pk>/", views.MovieDetailView.as_view()),
     path("rating/", views.AddStarRatingView.as_view()),
-
+    
     path("auth/", include("djoser.urls")),
     path("auth/token", obtain_auth_token, name="token"),
 ]
