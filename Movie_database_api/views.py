@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from .models import Movie
 from .serializers import CreateRatingSerializer, MovieListSerializer, MovieDetailSerializer
 
-from .service import get_client_ip, MovieFilter
+from .service import MovieFilter
 
 # Create your views here.
 
