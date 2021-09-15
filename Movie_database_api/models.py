@@ -30,9 +30,11 @@ class Genre(models.Model):
 
 class Movie(models.Model):
     title = CharField(verbose_name="Название", max_length=100)
-    directors = ManyToManyField(Actor, verbose_name = "Режиссер", related_name="film_director")
-    actors = ManyToManyField(Actor, verbose_name = "Актеры", related_name="film_actor")
-    genre = ManyToManyField(Genre, verbose_name = "Жанры")
+    directors = ManyToManyField(
+        Actor, verbose_name="Режиссер", related_name="film_director"
+    )
+    actors = ManyToManyField(Actor, verbose_name="Актеры", related_name="film_actor")
+    genre = ManyToManyField(Genre, verbose_name="Жанры")
 
     def __str__(self):
         return self.title
@@ -46,7 +48,7 @@ class RatingStar(models.Model):
     value = PositiveSmallIntegerField(verbose_name="Значение", default=0)
 
     def __str__(self):
-        return f'{self.value}'
+        return f"{self.value}"
 
     class Meta:
         verbose_name = "Звезда рейтинга"
@@ -56,11 +58,13 @@ class RatingStar(models.Model):
 class Rating(models.Model):
     user_id = CharField(verbose_name="Id пользователя", max_length=15, default=None)
     star = ForeignKey(RatingStar, on_delete=CASCADE, verbose_name="Звезда")
-    movie = ForeignKey(Movie, on_delete=CASCADE, verbose_name="Фильм", related_name="ratings")
+    movie = ForeignKey(
+        Movie, on_delete=CASCADE, verbose_name="Фильм", related_name="ratings"
+    )
 
     def __str__(self):
         return f"{self.star} - {self.movie}"
 
     class Meta:
         verbose_name = "Рейтинг"
-        verbose_name_plural = "Рейтинги"    
+        verbose_name_plural = "Рейтинги"

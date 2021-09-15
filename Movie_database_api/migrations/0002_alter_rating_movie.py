@@ -7,13 +7,18 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Movie_database_api', '0001_initial'),
+        ("Movie_database_api", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='rating',
-            name='movie',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='ratings', to='Movie_database_api.movie', verbose_name='Фильм'),
+            model_name="rating",
+            name="movie",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="ratings",
+                to="Movie_database_api.movie",
+                verbose_name="Фильм",
+            ),
         ),
     ]

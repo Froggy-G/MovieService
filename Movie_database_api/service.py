@@ -7,9 +7,9 @@ class CharFilterInFilter(filters.BaseInFilter, filters.CharFilter):
 
 
 class MovieFilter(filters.FilterSet):
-    actors = CharFilterInFilter(field_name='actors__name', lookup_expr='in')
-    directors = CharFilterInFilter(field_name='directors__name', lookup_expr='in')
-    
+    actors = CharFilterInFilter(field_name="actors__name", lookup_expr="in")
+    directors = CharFilterInFilter(field_name="directors__name", lookup_expr="in")
+
     class Meta:
         model = Movie
-        fields = ['actors', 'directors']
+        fields = ["actors", "directors"]

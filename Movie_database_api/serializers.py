@@ -13,9 +13,15 @@ class MovieListSerializer(serializers.ModelSerializer):
 
 
 class MovieDetailSerializer(serializers.ModelSerializer):
-    directors = serializers.SlugRelatedField(slug_field="name", read_only='True', many='True')
-    actors = serializers.SlugRelatedField(slug_field="name", read_only='True', many='True')
-    genre = serializers.SlugRelatedField(slug_field="name", read_only='True', many='True')
+    directors = serializers.SlugRelatedField(
+        slug_field="name", read_only="True", many="True"
+    )
+    actors = serializers.SlugRelatedField(
+        slug_field="name", read_only="True", many="True"
+    )
+    genre = serializers.SlugRelatedField(
+        slug_field="name", read_only="True", many="True"
+    )
 
     class Meta:
         model = Movie
@@ -31,6 +37,6 @@ class CreateRatingSerializer(serializers.ModelSerializer):
         rating, _ = Rating.objects.update_or_create(
             user_id=validated_data.get("user_id", None),
             movie=validated_data.get("movie", None),
-            defaults={"star": validated_data.get("star")}
+            defaults={"star": validated_data.get("star")},
         )
         return rating
