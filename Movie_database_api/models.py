@@ -7,7 +7,7 @@ from django.db.models.fields.related import ForeignKey, ManyToManyField
 
 
 class Actor(models.Model):
-    name = CharField("Имя", max_length=100)
+    name = CharField(verbose_name="Имя", max_length=100)
 
     def __str__(self):
         return self.name
@@ -18,7 +18,7 @@ class Actor(models.Model):
 
 
 class Genre(models.Model):
-    name = CharField("Имя", max_length=100)
+    name = CharField(verbose_name="Имя", max_length=100)
 
     def __str__(self):
         return self.name
@@ -29,7 +29,7 @@ class Genre(models.Model):
 
 
 class Movie(models.Model):
-    title = CharField("Название", max_length=100)
+    title = CharField(verbose_name="Название", max_length=100)
     directors = ManyToManyField(Actor, verbose_name = "Режиссер", related_name="film_director")
     actors = ManyToManyField(Actor, verbose_name = "Актеры", related_name="film_actor")
     genre = ManyToManyField(Genre, verbose_name = "Жанры")
@@ -43,7 +43,7 @@ class Movie(models.Model):
 
 
 class RatingStar(models.Model):
-    value = PositiveSmallIntegerField("Значение", default=0)
+    value = PositiveSmallIntegerField(verbose_name="Значение", default=0)
 
     def __str__(self):
         return f'{self.value}'
@@ -54,7 +54,7 @@ class RatingStar(models.Model):
 
 
 class Rating(models.Model):
-    ip = CharField("IP адрес", max_length=15)
+    ip = CharField(verbose_name="IP адрес", max_length=15)
     star = ForeignKey(RatingStar, on_delete=CASCADE, verbose_name="Звезда")
     movie = ForeignKey(Movie, on_delete=CASCADE, verbose_name="Фильм", related_name="ratings")
 
